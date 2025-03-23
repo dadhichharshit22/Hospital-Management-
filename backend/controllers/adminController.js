@@ -65,7 +65,7 @@ const loginAdmin = async (req, res) => {
     try {
         const {email, password} = req.body
 
-        if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+        if(email === process.env.EMAIL_USER && password === process.env.EMAIL_PASSWORD){
             const token = jwt.sign(email+password, process.env.JWT_SECRET)
             res.json({success:true,token})
         } else {
@@ -144,5 +144,31 @@ const adminDashboard =async (req,res)=>{
             res.json({success:false,message:error.message})
     }
     }
+const verifyQRCode = async (req, res) => {
+    try {
+        const { qrCode } = req.body; // QR Code contains the appointment ID
+
+        // Find the appointment by QR code (assuming QR stores appointment ID)
+        const appointment = await appointmentModel.findOne({ _id: qrCode });
+
+        if (!appointment) {
+            return res.status(404).json({ success: false, message: "Invalid QR Code" });
+        }
+
+        // If the appointment is already completed
+        if (appointment.isCompleted) {
+            return res.json({ success: false, message: "Appointment is already marked as completed!" });
+        }
+
+        // Mark appointment as completed
+        appointment.isCompleted = true;
+        await appointment.save();
+
+        res.json({ success: true, message: "Appointment marked as completed" });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: "Error verifying QR Code" });
+    }
+};
 
 export {addDoctor,loginAdmin,allDoctors,appointmentsAdmin,appointmentCancel, adminDashboard}

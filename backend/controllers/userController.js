@@ -1,4 +1,4 @@
-import validator from "validator";
+gimport validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/userModel.js";
@@ -6,6 +6,9 @@ import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
 import razorpay from "razorpay";
+import QRCode from "qrcode";
+import dotenv from 'dotenv';
+dotenv.config();
 
 //API to register user
 const registerUser = async (req, res) => {
@@ -108,16 +111,18 @@ const updateProfile = async (req, res) => {
   }
 };
 
-//API to book appointment
+
 const bookAppointment = async (req, res) => {
   try {
     const { userId, docId, slotDate, slotTime } = req.body;
     const docData = await doctorModel.findById(docId).select("-password");
+
     if (!docData.available) {
       return res.json({ success: false, message: "Doctor not available" });
     }
+
     let slots_booked = docData.slots_booked;
-    //checking for slot avilablity
+
     if (slots_booked[slotDate]) {
       if (slots_booked[slotDate].includes(slotTime)) {
         return res.json({ success: false, message: "Slot not available" });
@@ -125,11 +130,12 @@ const bookAppointment = async (req, res) => {
         slots_booked[slotDate].push(slotTime);
       }
     } else {
-      slots_booked[slotDate] = [];
-      slots_booked[slotDate].push(slotTime);
+      slots_booked[slotDate] = [slotTime];
     }
+
     const userData = await UserModel.findById(userId).select("-password");
     delete docData.slots_booked;
+
     const appointmentData = {
       userId,
       docId,
@@ -138,21 +144,46 @@ const bookAppointment = async (req, res) => {
       userData,
       docData,
       amount: docData.fees,
-      slotDate,
       date: Date.now(),
     };
-    const newAppointment = new appointmentModel(appointmentData);
-    newAppointment.save();
-    // console.log(newAppointment)
 
-    //save new slots data in docData
-    await doctorModel.findByIdAndUpdate(docId, { slots_booked });
-    res.json({ success: true, message: "Appointment Booked" });
+    const newAppointment = new appointmentModel(appointmentData);
+    await newAppointment.save();
+
+    // Generate Unique QR Code Data (Timestamp-Date)
+    const qrText = `Appointment-${Date.now()}-${slotDate}`;
+    
+    // Generate QR Code
+    const qrImageBuffer = await QRCode.toBuffer(qrText);
+
+    // Upload QR Code to Cloudinary
+    const qrUpload = await cloudinary.uploader.upload_stream(
+      { resource_type: "image" },
+      async (error, result) => {
+        if (error) {
+          console.log("QR Upload Error:", error);
+          return res.json({ success: false, message: "QR Code upload failed" });
+        }
+
+        // Update appointment with QR Image URL
+        await appointmentModel.findByIdAndUpdate(newAppointment._id, {
+          qrCodeUrl: result.secure_url,
+        });
+
+        // Save new slots data in doctor model
+        await doctorModel.findByIdAndUpdate(docId, { slots_booked });
+
+        res.json({ success: true, message: "Appointment Booked",qrCodeUrl: result.secure_url });
+      }
+    );
+
+    qrUpload.end(qrImageBuffer);
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
 };
+
 
 //API to get user appointmwnt for frontend my-appointments page
 const listAppointment = async (req, res) => {

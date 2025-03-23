@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
-
-//admin authentication middeleware only admin can access the routes
+import dotenv from 'dotenv';
+dotenv.config();
+//admin authentication middeleware
 const authAdmin = async (req, res, next) => {
   try {
     const { atoken } = req.headers;
@@ -11,7 +12,7 @@ const authAdmin = async (req, res, next) => {
       });
     }
     const token_decode = jwt.verify(atoken, process.env.JWT_SECRET);
-    if (token_decode !== process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD) {
+    if (token_decode !== process.env.EMAIL_USER + process.env.EMAIL_PASSWORD) {
       res.json({ success: false, message: "Not Authorized Login Again" });
     }
     next();
