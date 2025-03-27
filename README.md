@@ -28,14 +28,6 @@
 6. 🔗 [Links](#links)
 7. 🚀 [More](#more)
 
-## 🚨 Tutorial
-
-This repository contains the code corresponding to an in-depth tutorial available on our YouTube channel, <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a>. 
-
-If you prefer visual learning, this is the perfect resource for you. Follow our tutorial to learn how to build projects like these step-by-step in a beginner-friendly manner!
-
-<a href="https://youtu.be/zgGhzuBZOQg" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/1736fca5-a031-4854-8c09-bc110e3bc16d" /></a>
-
 ## <a name="introduction">🤖 Introduction</a>
 
 Built on Next.js 14, the events application stands as a comprehensive, full-stack platform for managing events. It serves as a hub, spotlighting diverse events taking place globally. Featuring seamless payment processing through Stripe, you have the capability to purchase tickets for any event or even initiate and manage your own events.
@@ -47,22 +39,21 @@ If you're getting started and need assistance or face any bugs, join our active 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
 - Node.js
-- Next.js
 - TypeScript
 - TailwindCSS
-- Stripe
-- Zod
+- Razporpay
+- Redux
 - React Hook Form
 - Shadcn
 - uploadthing
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Authentication (CRUD) with Clerk:** User management through Clerk, ensuring secure and efficient authentication.
+👉 **Authentication (CRUD) with Clerk:** User management through JWT Authentication, ensuring secure and efficient authentication.
 
-👉 **Events (CRUD):** Comprehensive functionality for creating, reading, updating, and deleting events, giving users full control over event management.
-- **Create Events:** Users can effortlessly generate new events, providing essential details such as title, date, location, and any additional information.
-- **Read Events:** Seamless access to a detailed view of all events, allowing users to explore event specifics, including descriptions, schedules, and related information.
+👉 **Doctors (CRUD):** Comprehensive functionality for creating, reading, updating, and deleting events, giving users full control over event management.
+- **Create Doctor:** Users can effortlessly generate new events, providing essential details such as title, date, location, and any additional information.
+- **Appointement:** Seamless access to a detailed view of all events, allowing users to explore event specifics, including descriptions, schedules, and related information.
 - **Update Events:** Empowering users to modify event details dynamically, ensuring that event information remains accurate and up-to-date.
 - **Delete Events:** A straightforward process for removing events from the system, giving administrators the ability to manage and curate the platform effectively.
         
