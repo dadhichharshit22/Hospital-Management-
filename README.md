@@ -82,7 +82,18 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-
+PORT = Your Port Number
+MONGODB_URI =  Your MongoDB URL
+JWT_SECRET= your jwt_secret
+EMAIL_USER = your email id
+EMAIL_PASSWORD = your email password 
+RAZORPAY_KEY_ID = your razorpay_key_id
+RAZORPAY_KEY_SECRET = your razorpay_secret_key
+CORS_ORIGIN= your frontend url
+CLOUDINARY_NAME = your cloudinary name
+CLOUDINARY_API_KEY = your cloudinary_api_key
+CLOUDINARY_SECRET_KEY= your cloudinary_secret_key
+VITE_BACKEND_URL= your backend url
 ```
 
 Replace the placeholder values with your actual credentials 
