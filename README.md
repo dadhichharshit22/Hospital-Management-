@@ -13,8 +13,6 @@
 
 The Hospital application stands as a comprehensive, full-stack platform for managing events. It serves as a hub, spotlighting diverse Hospital Website taking place globally. you have the capability to purchase tickets for any Doctor or even initiate and manage your own Doctors.
 
-<a href="https://discord.com/invite/n6EdbFJ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/618f4872-1e10-42da-8213-1d69e486d02e" /></a>
-
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
 - Node.js
