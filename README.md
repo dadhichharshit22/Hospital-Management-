@@ -11,7 +11,7 @@
 
 ## <a name="introduction">🤖 Introduction</a>
 
-Built on Next.js 14, the Hospital application stands as a comprehensive, full-stack platform for managing events. It serves as a hub, spotlighting diverse Hospital Website taking place globally. Featuring seamless payment processing through Stripe, you have the capability to purchase tickets for any event or even initiate and manage your own events.
+The Hospital application stands as a comprehensive, full-stack platform for managing events. It serves as a hub, spotlighting diverse Hospital Website taking place globally. you have the capability to purchase tickets for any Doctor or even initiate and manage your own Doctors.
 
 <a href="https://discord.com/invite/n6EdbFJ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/618f4872-1e10-42da-8213-1d69e486d02e" /></a>
 
@@ -28,7 +28,7 @@ Built on Next.js 14, the Hospital application stands as a comprehensive, full-st
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Authentication (CRUD) with Clerk:** User management through JWT Authentication, ensuring secure and efficient authentication.
+👉 **Authentication (CRUD) with JWT:** User management through JWT Authentication, ensuring secure and efficient authentication.
 
 👉 **Doctors (CRUD):** Comprehensive functionality for creating, reading, updating, and deleting Doctor, giving users full control over Hospital management.
 - **Create Doctor:** Users can effortlessly generate new events, providing essential details such as title, date, location, and any additional information.
